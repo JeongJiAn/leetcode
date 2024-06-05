@@ -1,33 +1,41 @@
 package TopInterview150.Array_String;
 
-public class _02RemoveElement {
+public class _03RemoveDuplicateFromSortedArray {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[] nums1 = new int[]{3,2,2,3};
-        int[] nums2 = new int[]{0,1,2,2,3,0,4,2};
-        System.out.println(solution.removeElement(nums1, 3));
-        System.out.println(solution.removeElement(nums2, 2));
+        int[] nums1 = {1,2};
+        int[] nums2 = {0,0,1,1,1,2,2,3,3,4};
+        System.out.println(solution.removeDuplicates(nums1));
+        System.out.println(solution.removeDuplicates(nums2));
     }
 
     static class Solution {
-        public int removeElement(int[] nums, int val) {
+        public int removeDuplicates(int[] nums) {
             int k = 0;
 
-            for (int i = 0; i < nums.length; i++) {
-                if (nums[i] != val && nums[i] != -1) {
+            if (nums.length == 1) {
+                return 1;
+            }
+
+            for (int i = 0; i < nums.length - 1; i++) {
+                if (nums[i] != nums[i + 1]) {
                     k++;
                 } else if (nums[i] != -1) {
                     for (int j = i; j < nums.length - 1; j++) {
                         nums[j] = nums[j + 1];
                     }
                     nums[nums.length - 1] = -1;
-                    if (nums[i] == val) {
+                    if (nums[i] == nums[i + 1]) {
                         i--;
                     } else if (nums[i] != -1) {
                         k++;
                     }
                 }
+            }
+
+            if (k == nums.length - 1 && nums[k] != nums[k - 1] && nums[k] != -1) {
+                k++;
             }
 
             for (int i = 0; i < nums.length; i++) {
