@@ -1,6 +1,6 @@
 package TopInterview150.Array_String;
 
-public class _03RemoveDuplicateFromSortedArray {
+public class _03RemoveDuplicatesFromSortedArray {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
@@ -13,28 +13,30 @@ public class _03RemoveDuplicateFromSortedArray {
     static class Solution {
         public int removeDuplicates(int[] nums) {
             int k = 0;
+            int dup = 0;
 
             if (nums.length == 1) {
                 return 1;
             }
 
-            for (int i = 0; i < nums.length - 1; i++) {
+            for (int i = 0; i < nums.length - dup - 1; i++) {
                 if (nums[i] != nums[i + 1]) {
                     k++;
-                } else if (nums[i] != -1) {
-                    for (int j = i; j < nums.length - 1; j++) {
+                } else {
+                    for (int j = i; j < nums.length - dup - 1; j++) {
                         nums[j] = nums[j + 1];
                     }
-                    nums[nums.length - 1] = -1;
+                    nums[nums.length - dup - 1] = -1;
+                    dup++;
                     if (nums[i] == nums[i + 1]) {
                         i--;
-                    } else if (nums[i] != -1) {
+                    } else {
                         k++;
                     }
                 }
             }
 
-            if (k == nums.length - 1 && nums[k] != nums[k - 1] && nums[k] != -1) {
+            if (k == nums.length - dup - 1 && nums[k] != nums[k - 1]) {
                 k++;
             }
 
